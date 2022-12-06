@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const bcryptjs = require("bcrypt.js"); //2.10
+const bcryptjs = require("bcryptjs"); //2.10
 
 let movieSchema = mongoose.Schema({
   Title: {

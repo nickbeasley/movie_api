@@ -50,7 +50,7 @@ app.use(
     },
   })
 );
-//let auth = require("./auth")(app);
+let auth = require("../auth")(app);
 //FIX LOGIN ENDPOINT
 const passport = require("passport");
 require("../passport");

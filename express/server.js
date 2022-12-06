@@ -18,6 +18,7 @@ const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 const uuid = require("uuid");
+
 const serverless = require("serverless-http");
 const app = express();
 app.use(express.json());
@@ -51,6 +52,11 @@ app.use(
     },
   })
 );
+
+//Do i need the next 2 lines?
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+
 let auth = require("../auth")(app);
 //FIX LOGIN ENDPOINT
 const passport = require("passport");

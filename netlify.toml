@@ -2,7 +2,3 @@
   command = "CI= npm run build"
   functions = "functions"
 
-[[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200

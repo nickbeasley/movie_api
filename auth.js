@@ -1,4 +1,5 @@
 const Config = require("./config.js");
+
 const jwtSecret = Config.JWT_SECRET; // Must be same key used in JWTStrategy
 
 const jwt = require("jsonwebtoken"),
@@ -6,6 +7,12 @@ const jwt = require("jsonwebtoken"),
 
 require("./passport"); //Local passport file
 
+const express = require("express");
+const API_ROUTER = express.Router();
+const app = express();
+const methodOverride = require("method-override");
+
+app.use(methodOverride());
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
     subject: user.Username, // Username encoding in the JWT
@@ -13,9 +20,6 @@ let generateJWTToken = (user) => {
     algorithm: "HS256", // Algorithm used to 'sign' or encode the values of JWT
   });
 };
-
-const express = require("express");
-const API_ROUTER = express.Router();
 
 /* POST login*/
 module.exports = (router) => {

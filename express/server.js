@@ -44,7 +44,7 @@ app.use(
       if (allowedOrigins.indexOf(origin) === -1) {
         // If a specific origin isn’t found on the list of allowed origins
         let message =
-          "The CORS policy for this application doesn/n't allow access from origin " +
+          "The CORS policy for this application doesn't allow access from origin " +
           origin;
         return callback(new Error(message), false);
       }
@@ -52,10 +52,6 @@ app.use(
     },
   })
 );
-
-//Do i need the next 2 lines?
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require("../auth")(app);
 //FIX LOGIN ENDPOINT

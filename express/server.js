@@ -1,17 +1,20 @@
 require("dotenv").config();
 const { check, validationResult } = require("express-validator"); //2.10
-//const Config = require("./config");
-const mongoose = require("mongoose");
+
 const Models = require("../models.js");
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
+
 const { API_ROOT, CONNECTION_URI } = require("../config");
+
+const mongoose = require("mongoose");
 mongoose.connect(CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+mongoose.set("strictQuery", true);
 
 const express = require("express");
 const morgan = require("morgan");

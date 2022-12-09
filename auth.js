@@ -39,3 +39,5 @@ module.exports = (router) => {
     })(req, res);
   });
 };
+
+module.exports = auth;

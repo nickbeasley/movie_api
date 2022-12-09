@@ -14,9 +14,12 @@ let generateJWTToken = (user) => {
   });
 };
 
+const express = require("express");
+const API_ROUTER = express.Router();
+
 /* POST login*/
 module.exports = (router) => {
-  router.post("/login", (req, res) => {
+  API_ROUTER.post("/login", (req, res) => {
     console.log(req.body);
     passport.authenticate("local", { session: false }, (error, user, info) => {
       if (error || !user) {

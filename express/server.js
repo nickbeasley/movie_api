@@ -55,15 +55,14 @@ app.use(
     },
   })
 );
-
-const auth = require("../auth")(app);
-//FIX LOGIN ENDPOINT
 const passport = require("passport");
 require("../passport");
 const methodOverride = require("method-override");
 
 app.use(methodOverride());
 const API_ROUTER = express.Router();
+
+const auth = require("../auth")(API_ROUTER);
 
 API_ROUTER.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");

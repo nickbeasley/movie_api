@@ -22,6 +22,8 @@ const fs = require("fs");
 const path = require("path");
 const uuid = require("uuid");
 
+const bodyParser = require("body-parser");
+
 const serverless = require("serverless-http");
 const app = express();
 app.use(express.json());

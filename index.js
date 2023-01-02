@@ -24,10 +24,12 @@ mongoose.connect(Config.CONNECTION_URI, {
 
 const express = require("express");
 
+const fs = require("fs");
+
 const app = express();
 
 const morgan = require("morgan");
-const fs = require("fs");
+
 const path = require("path");
 
 const uuid = require("uuid");
@@ -35,12 +37,6 @@ const uuid = require("uuid");
 const bodyParser = require("body-parser");
 
 const methodOverride = require("method-override");
-//for netlify
-const serverless = require("serverless-http");
-const router = express.Router();
-const { API_ROOT } = require("../config");
-const API_ROUTER = express.Router();
-app.use(express.json());
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
@@ -89,7 +85,7 @@ app.get("/", (req, res) => {
 });
 
 //Get all movies in json 2.8
-API_ROUTER.get(
+app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -402,8 +398,3 @@ const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
 });
-
-app.use(API_ROOT, API_ROUTER);
-
-module.exports = app;
-module.exports.handler = serverless(app);

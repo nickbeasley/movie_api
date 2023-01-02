@@ -87,3 +87,7 @@
 ::1 - - [10/Dec/2022:01:55:14 +0000] "GET /.netlify/functions/server/movies HTTP/1.1" 401 - "-" "PostmanRuntime/7.29.2"
 ::1 - - [10/Dec/2022:01:56:12 +0000] "POST /.netlify/functions/server/login?Username=nickBeasley3&Password=passwordForNick3 HTTP/1.1" 200 1463 "-" "PostmanRuntime/7.29.2"
 ::1 - - [10/Dec/2022:01:57:23 +0000] "GET /.netlify/functions/server/movies HTTP/1.1" 201 13762 "-" "PostmanRuntime/7.29.2"
+::1 - - [10/Dec/2022:02:01:11 +0000] "GET /.netlify/functions/server/users HTTP/1.1" 201 1073 "-" "PostmanRuntime/7.29.2"
+::1 - - [10/Dec/2022:02:01:24 +0000] "GET /.netlify/functions/server/genres HTTP/1.1" 201 13762 "-" "PostmanRuntime/7.29.2"
+::1 - - [10/Dec/2022:02:01:30 +0000] "GET /.netlify/functions/server/directors HTTP/1.1" 201 13762 "-" "PostmanRuntime/7.29.2"
+::1 - - [10/Dec/2022:02:02:39 +0000] "POST /.netlify/functions/server/users HTTP/1.1" 201 229 "-" "PostmanRuntime/7.29.2"

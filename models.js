@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 
 let movieSchema = mongoose.Schema({
   Title: {
@@ -33,11 +33,11 @@ let userSchema = mongoose.Schema({
 });
 //2.10
 userSchema.statics.hashPassword = (password) => {
-  return bcrypt.hashSync(password, 10);
+  return bcryptjs.hashSync(password, 10);
 };
 //2.10
 userSchema.methods.validatePassword = function (password) {
-  return bcrypt.compareSync(password, this.Password);
+  return bcryptjs.compareSync(password, this.Password);
 };
 
 let Movie = mongoose.model("Movie", movieSchema);

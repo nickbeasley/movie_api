@@ -1,20 +1,11 @@
 require("dotenv").config();
-
-//Require models & packages
 const { check, validationResult } = require("express-validator"); //2.10
-
 const Config = require("./config");
-
 const mongoose = require("mongoose");
-
 const Models = require("./models.js");
-
 const Movies = Models.Movie;
-
 const Users = Models.User;
-
 const Genres = Models.Genre;
-
 const Directors = Models.Director;
 
 mongoose.connect(Config.CONNECTION_URI, {
@@ -23,21 +14,13 @@ mongoose.connect(Config.CONNECTION_URI, {
 });
 
 const express = require("express");
-
 const fs = require("fs");
-
 const app = express();
-
 const morgan = require("morgan");
-
 const path = require("path");
-
 const uuid = require("uuid");
-
 const bodyParser = require("body-parser");
-
 const methodOverride = require("method-override");
-
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
 });

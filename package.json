@@ -2,11 +2,12 @@
   "name": "movie_api",
   "version": "1.0.0",
   "description": "This web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.",
-  "main": "index.js",
+  "main": "functions/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon server-local.js",
+    "start": "nodemon server-local.js",
+    "build": "netlify-lambda build express"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^6.6.1",
     "morgan": "^1.10.0",
+    "netlify-lambda": "^1.6.3",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

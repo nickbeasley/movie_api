@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/nickbeasley/movie_api/issues"
   },
-  "homepage": "https://github.com/nickbeasley/movie_api",
+  "homepage": "https://github.com/nickbeasley/movie_api#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",

@@ -65,8 +65,6 @@ const API_ROUTER = express.Router();
 
 const auth = require("../auth")(API_ROUTER);
 
-app.use("/.netlify/functions/server", API_ROUTER); // path must route to lambda
-
 API_ROUTER.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 })

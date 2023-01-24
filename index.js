@@ -8,10 +8,22 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-mongoose.connect(Config.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+let connected = false;
+
+mongoose.set("strictQuery", false);
+mongoose
+  .connect(process.env.CONNECTION_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    connected = true;
+    console.log("db connected");
+  })
+  .catch((e) => {
+    connected = false;
+    console.log("db not connected");
+  });
 
 const express = require("express");
 const fs = require("fs");

@@ -9,7 +9,6 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 let connected = false;
-
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.CONNECTION_URI, {

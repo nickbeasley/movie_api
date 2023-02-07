@@ -344,12 +344,10 @@ app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Movies.findOneAndUpdate(
+    console.log(req.params.Username, req.params.MovieID);
+    Users.findOneAndUpdate(
       { Username: req.params.Username },
-      {
-        $pull: { FavoriteMovies: req.params.MovieID },
-      },
-      { new: true },
+      { $pull: { FavoriteMovies: req.params.MovieID } },
       (err, updatedUser) => {
         if (err) {
           console.error(err);

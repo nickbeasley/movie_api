@@ -50,6 +50,7 @@ let allowedOrigins = [
   "http://localhost:1234",
   "https://nixflix-client.netlify.app",
   "https://nixflix-server.onrender.com",
+  "https://localhost:4200",
 ];
 //2.10
 app.use(

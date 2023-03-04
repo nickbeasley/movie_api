@@ -48,9 +48,9 @@ let allowedOrigins = [
   "http://localhost:8080",
   "http://testsite.com",
   "http://localhost:1234",
+  "http://localhost:4200",
   "https://nixflix-client.netlify.app",
   "https://nixflix-server.onrender.com",
-  "https://localhost:4200",
 ];
 //2.10
 app.use(

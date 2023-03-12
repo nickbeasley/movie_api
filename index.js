@@ -51,6 +51,7 @@ let allowedOrigins = [
   "http://localhost:4200",
   "https://nixflix-client.netlify.app",
   "https://nixflix-server.onrender.com",
+  "https://nickbeasley.github.io/myFlix-Angular-client/",
 ];
 //2.10
 app.use(

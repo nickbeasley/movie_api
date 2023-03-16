@@ -9,6 +9,13 @@ let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
+/**
+   * LocalStrategy authenticates user using username and password
+   * @param {*} username
+   * @param {*} password
+   * @returns user object
+
+   */
 passport.use(
   new LocalStrategy(
     {
@@ -39,7 +46,11 @@ passport.use(
     }
   )
 );
-
+/**
+ * JWTStrategy authenticates user using JWT
+ * @param {*} jwtPayload
+ * @returns user object
+ */
 passport.use(
   new JWTStrategy(
     {

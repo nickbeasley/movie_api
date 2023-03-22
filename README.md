@@ -39,50 +39,70 @@
       </li>
       <li>The API must be deployed to Heroku.</li>
     </ul>
-    <table class="method-table">
-      <tr>
-        <th>GET</th>
-        <th>POST</th>
-        <th>PUT</th>
-        <th>DELETE</th>
-      </tr>
-      <tr>
-        <td>Return all movies use; /movies</td>
-        <td>To add user use; /users</td>
-        <td>To find user by id use; /users/:Username</td>
-        <td>To delete user use; /users/:Username</td>
-      </tr>
-      <tr>
-        <td>Return specific move use; /movies/:</td>
-        <td>To add a favorite movie use; /users/:id/:movieTitle</td>
-        <td></td>
-        <td>
-          To delete a user's favorite movie use;
-          /users/:Username/movies/:movieID
-        </td>
-      </tr>
-      <tr>
-        <td>Return director info use; /directors/:directorName</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Return Genre info use; /movies/genres/</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Return users list use; /users</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="table-end">Returned in JSON format.</td>
-        <td class="table-end">Returned in JSON format.</td>
-        <td class="table-end">Returned in JSON format.</td>
-        <td class="table-end">Returned in JSON format.</td>
-      </tr>
+   <table>
+      <thead>
+        <tr>
+          <th>Endpoint</th>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>/</td>
+          <td>GET</td>
+          <td>Serves the index.html file</td>
+        </tr>
+        <tr>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>Returns a list of all movies</td>
+        </tr>
+        <tr>
+          <td>/genres</td>
+          <td>GET</td>
+          <td>Returns a list of all genres</td>
+        </tr>
+        <tr>
+          <td>/directors</td>
+          <td>GET</td>
+          <td>Returns a list of all directors</td>
+        </tr>
+        <tr>
+          <td>/movies/:Director</td>
+          <td>GET</td>
+          <td>
+            Returns data about a director, including matching movies, by name
+          </td>
+        </tr>
+        <tr>
+          <td>/movies/:Title</td>
+          <td>GET</td>
+          <td>Returns data about a single movie by title</td>
+        </tr>
+        <tr>
+          <td>/directors/:Name</td>
+          <td>GET</td>
+          <td>
+            Returns data about a director, including matching movies, by name
+          </td>
+        </tr>
+        <tr>
+          <td>/genres/:Name</td>
+          <td>GET</td>
+          <td>
+            Returns data about a genre, including matching movies, by name
+          </td>
+        </tr>
+        <tr>
+          <td>/users</td>
+          <td>GET</td>
+          <td>Returns a list of all users</td>
+        </tr>
+        <tr>
+          <td>/users/:Username</td>
+          <td>GET</td>
+          <td>Returns a user by username</td>
+        </tr>
+      </tbody>
     </table>

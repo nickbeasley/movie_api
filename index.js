@@ -1,4 +1,12 @@
 require("dotenv").config();
+
+const express = require("express");
+const multer = require("multer");
+const AWS = require("aws-sdk");
+
+const s3 = new AWS.S3();
+const bucketName = "nixflix-images";
+
 const { check, validationResult } = require("express-validator"); //2.10
 const Config = require("./config");
 const mongoose = require("mongoose");
@@ -24,7 +32,6 @@ mongoose
     console.log("db not connected");
   });
 
-const express = require("express");
 const fs = require("fs");
 const app = express();
 const morgan = require("morgan");
@@ -78,24 +85,10 @@ require("./passport");
 
 app.use(methodOverride());
 
-/**
- * send index.html file at endpoint "/"
- * @name getIndex
- * @kind function
- * @returns index.html file
- */
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-/**
- * GET a list of all movies
- * request: bearer token
- * @name getMovies
- * @kind function
- * @requires passport
- * @returns the movies array of objects
- */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -110,13 +103,7 @@ app.get(
       });
   }
 );
-/**
- * GET a list of all genres
- * @name getGenres
- * @kind function
- * @requires passport
- * @returns the genres array of objects
- */
+
 app.get(
   "/genres",
   passport.authenticate("jwt", { session: false }),
@@ -131,13 +118,7 @@ app.get(
       });
   }
 );
-/**
- * GET a list of all directors
- * @name getDirectors
- * @kind function
- * @requires passport
- * @returns the directors array of objects
- */
+
 app.get(
   "/directors",
   passport.authenticate("jwt", { session: false }),
@@ -152,14 +133,7 @@ app.get(
       });
   }
 );
-/**
- * GET data about a director, including matching movies, by name
- * @name getDirector
- * @kind function
- * @param Name - the name of the director
- * @requires passport
- * @returns A JSON object holding data about the specified director
- */
+
 app.get(
   "./movies/:Director",
   passport.authenticate("jwt", { session: false }),
@@ -174,14 +148,7 @@ app.get(
       });
   }
 );
-/**
- * GET data about a single movie by title
- * @name getMovie
- * @kind function
- * @param Title
- * @requires passport
- * @returns the movie object
- */
+
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -196,14 +163,7 @@ app.get(
       });
   }
 );
-/**
- * GET data about a director, including matching movies, by name
- * @name getDirector
- * @kind function
- * @param Name - the name of the director
- * @requires passport
- * @returns A JSON object holding data about the specified director
- */
+
 app.get(
   "/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -218,14 +178,7 @@ app.get(
       });
   }
 );
-/**
- * GET data about a genre, including matching movies, by name
- * @name getGenre
- * @kind function
- * @param Name - the name of the genre
- * @requires passport
- * @returns A JSON object holding data about the specified genre
- */
+
 app.get(
   "/genres/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -241,17 +194,6 @@ app.get(
   }
 );
 
-/**
- * POST new user upon registration if a matching user is not found
- * Perform checks on Username, Password and Email fields
- * Hash the user's password
- * Reguest: Bearer token, user object
- * @name registerUser
- * @kind function
- * @param Username, Password, Email
- * @requires passport
- * @returns new user object
- */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -266,15 +208,7 @@ app.get(
       });
   }
 );
-/**
- * GET a user by Username
- * request: bearer token
- * @name getUser
- * @kind function
- * @param Username
- * @requires passport
- * @returns the user object
- */
+
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -289,15 +223,7 @@ app.get(
       });
   }
 );
-/**
- * GET a user by Username
- * request: bearer token
- * @name getUser
- * @kind function
- * @param Username
- * @requires passport
- * @returns the user object
- */
+
 app.get(
   "/users/:id",
   passport.authenticate("jwt", { session: false }),
@@ -312,17 +238,7 @@ app.get(
       });
   }
 );
-/**
- * POST new user upon registration if a matching user is not found
- * Perform checks on Username, Password and Email fields
- * Hash the user's password
- * Reguest: Bearer token, user object
- * @name registerUser
- * @kind function
- * @param Username, Password, Email
- * @requires passport
- * @returns new user object
- */
+
 app.post(
   "/users",
   [
@@ -367,17 +283,7 @@ app.post(
       });
   }
 );
-/**
- * PUT updated user info, by Username
- * Perform checks on Username, Password and Email fields
- * Hash the user's password
- * Reguest: Bearer token, user object
- * @name updateUser
- * @kind function
- * @param Username
- * @requires passport
- * @returns A JSON object holding the updated user data, including their ID
- */
+
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -420,16 +326,7 @@ app.put(
     );
   }
 );
-/**
- * POST movie to user's list of favorites
- * Request: Bearer token
- * @name addFavorite
- * @kind function
- * @param Username
- * @param MovieID
- * @requires passport
- * @returns the user object with the new favorite movie added to the FavoriteMovies array
- */
+
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -451,16 +348,7 @@ app.post(
     );
   }
 );
-/**
- * DELETE a movie from user's list of favorites
- * requires bearer token
- * @name deleteFavorite
- * @kind function
- * @param Username
- * @param MovieID
- * @requires passport
- * @returns a message to the user stating that the movie has been removed
- */
+
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -481,15 +369,6 @@ app.delete(
   }
 );
 
-/**
- * DELETE user
- * requires bearer token
- * @name deleteUser
- * @kind function
- * @param Username
- * @requires passport
- * @returns A text message indicating whether the user was successfully deregistered
- */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -508,16 +387,110 @@ app.delete(
       });
   }
 );
+
+// Configure Multer for file upload
+const upload = multer({ dest: "uploads/" });
+
+// Upload images to an S3 bucket
+app.post("/upload", upload.single("file"), (req, res) => {
+  const file = req.file;
+
+  if (!file) {
+    return res.status(400).json({ error: "No file uploaded." });
+  }
+
+  const uploadParams = {
+    Bucket: bucketName,
+    Key: file.originalname,
+    Body: require("fs").createReadStream(file.path),
+  };
+
+  s3.upload(uploadParams, (err) => {
+    if (err) {
+      console.error("Error uploading image:", err);
+      return res.status(500).json({ error: "Failed to upload image." });
+    }
+
+    return res.json({ message: "Image uploaded successfully." });
+  });
+});
+
+// Return a list of images in the S3 bucket
+app.get("/images", (req, res) => {
+  const listParams = { Bucket: bucketName };
+
+  s3.listObjectsV2(listParams, (err, data) => {
+    if (err) {
+      console.error("Error listing images:", err);
+      return res.status(500).json({ error: "Failed to retrieve images." });
+    }
+
+    const images = data.Contents.map((obj) => obj.Key);
+    return res.json({ images });
+  });
+});
+
+// Retrieve and display a gallery of thumbnails of the images from the S3 bucket
+app.get("/thumbnails", (req, res) => {
+  const listParams = { Bucket: bucketName };
+
+  s3.listObjectsV2(listParams, (err, data) => {
+    if (err) {
+      console.error("Error listing images:", err);
+      return res.status(500).json({ error: "Failed to retrieve images." });
+    }
+
+    const images = data.Contents.map((obj) => obj.Key);
+    const thumbnails = images.map((key) => getThumbnailURL(key));
+    return res.json({ thumbnails });
+  });
+});
+
+// Retrieve and display the original images from the S3 bucket
+app.get("/originals", (req, res) => {
+  const listParams = { Bucket: bucketName };
+
+  s3.listObjectsV2(listParams, (err, data) => {
+    if (err) {
+      console.error("Error listing images:", err);
+      return res.status(500).json({ error: "Failed to retrieve images." });
+    }
+
+    const images = data.Contents.map((obj) => obj.Key);
+    const originals = images.map((key) => getOriginalURL(key));
+    return res.json({ originals });
+  });
+});
+
+// Retrieve and display a specific original image from the S3 bucket
+app.get("/originals/:imageKey", (req, res) => {
+  const imageKey = req.params.imageKey;
+  const originalURL = getOriginalURL(imageKey);
+
+  return res.redirect(originalURL);
+});
+
+// Helper function to get the thumbnail URL for an image key
+function getThumbnailURL(key) {
+  // Modify the URL generation logic according to your needs
+  return `https://${bucketName}.s3.amazonaws.com/thumbnails/${key}`;
+}
+
+// Helper function to get the original image URL for an image key
+function getOriginalURL(key) {
+  // Modify the URL generation logic according to your needs
+  return `https://${bucketName}.s3.amazonaws.com/originals/${key}`;
+}
+
 //Log any errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
-// Server running pn port 8080
-//2.10 function updated to allow port to change
-const port = process.env.PORT || 8080;
-app.listen(port, "0.0.0.0", () => {
-  console.log("Listening on Port " + port);
+
+// Start the server
+app.listen(8080, () => {
+  console.log("Server is running on port 8080");
 });
 
 module.exports = app;
